@@ -582,6 +582,11 @@ process_options (int count, char **vector)
 			case 's':			/* calibrate the RNG usage */
 				set_seeds = 1;
 				break;
+			case 'o':
+				stdout_output = 1;	/* output generated data to stdout */
+				verbose = -1;		/* implies quiet */
+				force = 1;			/* implies force */
+				break;
 			default:
 				fprintf (stderr, "Unknown option name %s\n",
 					optarg);
@@ -670,6 +675,7 @@ main (int ac, char **av)
 		(1 << PART_PSUPP) |
 		(1 << ORDER_LINE);
 	force = 0;
+	stdout_output = 0;
     insert_segments=0;
     delete_segments=0;
     insert_orders_segment=0;

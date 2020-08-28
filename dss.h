@@ -279,6 +279,7 @@ EXTERN long children;
 EXTERN int  step;
 EXTERN int	set_seeds;
 EXTERN char *d_path;
+EXTERN int stdout_output;
 
 /* added for segmented updates */
 EXTERN int insert_segments;
@@ -478,7 +479,7 @@ int dbg_print(int dt, FILE *tgt, void *data, int len, int eol);
 #define PR_MONEY(f, str) 		dbg_print(DT_MONEY, f, (void *)str, 0, 1)
 #define PR_CHR(f, str)	 		dbg_print(DT_CHR, f, (void *)str, 0, 1)
 #define  PR_STRT(fp)   /* any line prep for a record goes here */
-#define  PR_END(fp)    fprintf(fp, "\n")   /* finish the record here */
+#define  PR_END(fp)   if ( stdout_output > 0 ) { fprintf(stdout, "\n"); } else { fprintf(fp, "\n"); } /* finish the record here */
 #ifdef MDY_DATE
 #define  PR_DATE(tgt, yr, mn, dy)	\
    sprintf(tgt, "%02d-%02d-19%02d", mn, dy, yr)
